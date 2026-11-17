@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+#tabule {
+    width: 200px;
+    line-height: 16px;
+}
+
+#dates {
+    width: 73px;
+    flex-shrink: 0;
+    line-height: 20px;
+}
