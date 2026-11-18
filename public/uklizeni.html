@@ -8,46 +8,46 @@
     </head>
     <body>
         <table border="1">
-            <tr>
-                <th>Datum</th>
-                <th>Zdenda</th>
-                <th>Zorka</th>
-                <th>Ríša</th>
-            </tr>
-            <tr>
-                <td>14.11</td>
-                <td>P</td>
-                <td>K</td>
-                <td>L</td>
-            </tr>
-            <tr>
-                <td>21.11</td>
-                <td>L</td>
-                <td>P</td>
-                <td>K</td>
-            </tr>
-            <tr>
-                <td>28.11</td>
-                <td>K</td>
-                <td>L</td>
-                <td>P</td>
-            </tr>
+            <caption>Přiřazení úkolů je zatím pouze ukázkové.</caption>
+            <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Zdenda</th>
+                    <th>Zorka</th>
+                    <th>Ríša</th>
+                </tr>
+            </thead>
+            <tbody id="schedule"></tbody>
         </table>
+
+        <script>
+            const today = new Date();
+            const currentSaturday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const daysSinceMonday = (currentSaturday.getDay() + 6) % 7;
+            currentSaturday.setDate(currentSaturday.getDate() - daysSinceMonday + 5);
+
+            // TODO: Replace these examples with the computed assignments for each week.
+            // Each row is ordered: Zdenda, Zorka, Ríša.
+            const assignmentsByWeek = [
+                ["P", "K", "L"], // Previous week
+                ["L", "P", "K"], // Current week
+                ["K", "L", "P"]  // Next week
+            ];
+
+            const schedule = document.getElementById("schedule");
+            [-7, 0, 7].forEach((dayOffset, index) => {
+                const date = new Date(currentSaturday);
+                date.setDate(date.getDate() + dayOffset);
+
+                const row = document.createElement("tr");
+                const dateText = `${date.getDate()}.${date.getMonth() + 1}`;
+                [dateText, ...assignmentsByWeek[index]].forEach(value => {
+                    const cell = document.createElement("td");
+                    cell.textContent = value;
+                    row.appendChild(cell);
+                });
+                schedule.appendChild(row);
+            });
+        </script>
     </body>
 </html>
-
-
-
-
-
-<!--                <script>
-                    let startDate = new Date(2026, 10, 21);
-
-                    for (let i = 0; i < 100; i++) {
-                        let currentDate = new Date(startDate);
-                        currentDate.setDate(startDate.getDate() + (i * 7));
-
-                        document.getElementById("dates").innerHTML +=
-                            currentDate.toLocaleDateString("en-GB") + "<br>";
-                    }
-                </script>  -->
